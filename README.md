@@ -1,5 +1,13 @@
 # hermes-agent
 
+<p align="left">
+  <img src="https://github.com/ZQM-Computing/hermes-agent/actions/workflows/ci.yml/badge.svg" alt="CI" />
+  <img src="https://img.shields.io/badge/tests-passing-brightgreen" alt="Tests" />
+  <img src="https://img.shields.io/badge/ruff-passing-blue" alt="Ruff" />
+  <img src="https://img.shields.io/badge/mypy-passing-blue" alt="Mypy" />
+</p>
+
+
 The self-improving AI agent built by Nous Research. It creates skills from experience, improves them during use, and runs anywhere.
 
 ## About
