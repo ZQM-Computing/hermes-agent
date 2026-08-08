@@ -15,4 +15,4 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install 'ruff>=0.5'
-      - run: ruff check . --select E,F,I,PIE,PLW
+      - run: ruff check .
