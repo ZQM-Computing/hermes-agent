@@ -372,7 +372,7 @@ python-version = "3.13"
 unknown-argument = "warn"
 redundant-cast = "ignore"
 
-[tool.ruff.lint]
+[tool.ruff]
 preview = true  # required for PLW1514 (unspecified-encoding) — preview rule
 # All other lints are intentionally disabled (see comment history on this
 # file) while we wrangle typechecks — but PLW1514 is too load-bearing to
