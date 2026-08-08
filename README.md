@@ -64,3 +64,12 @@ MIT — see [LICENSE](LICENSE).
 ## Contact
 
 zqmcomputing@gmail.com
+
+## Related Repositories
+
+- [ZQM-Computing/hermes](https://github.com/ZQM-Computing/hermes) — CLI runtime and session management for Hermes
+- [ZQM-Computing/hermes-config](https://github.com/ZQM-Computing/hermes-config) — profiles, skills, and MCP server configs
+- [ZQM-Computing/swarm](https://github.com/ZQM-Computing/swarm) — multi-agent mesh orchestration for distributed Hermes workloads
+- [ZQM-Computing/zqm-ai-master](https://github.com/ZQM-Computing/zqm-ai-master) — FastAPI gateway with Ollama inference and AI council
+- [ZQM-Labs/ollama-bridge](https://github.com/ZQM-Labs/ollama-bridge) — MCP bridge for capability-aware model routing to Ollama hosts
+- [ZQM-Labs/zqm-hermes-skills](https://github.com/ZQM-Labs/zqm-hermes-skills) — Hermes skills for networking, Windows, LAN, GitHub, and automation
