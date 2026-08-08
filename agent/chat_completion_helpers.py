@@ -1722,7 +1722,7 @@ def handle_max_iterations(agent, messages: list, api_call_count: int) -> str:
 
     except Exception as e:
         logger.warning(f"Failed to get summary response: {e}")
-        final_response = f"I reached the maximum iterations ({agent.max_iterations}) but couldn't summarize. Error: {str(e)}"
+        final_response = f"I reached the maximum iterations ({agent.max_iterations}) but couldn't summarize. Error: {e!s}"
 
     return final_response
 
@@ -2992,11 +2992,11 @@ def interruptible_streaming_api_call(agent, api_kwargs: dict, *, on_first_delta=
 
 
 __all__ = [
-    "interruptible_api_call",
     "build_api_kwargs",
     "build_assistant_message",
-    "try_activate_fallback",
-    "handle_max_iterations",
     "cleanup_task_resources",
+    "handle_max_iterations",
+    "interruptible_api_call",
     "interruptible_streaming_api_call",
+    "try_activate_fallback",
 ]

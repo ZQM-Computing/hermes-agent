@@ -329,7 +329,7 @@ class TeamsSummaryWriter:
                 continue
             if items:
                 rendered = "".join(f"<li>{html.escape(str(item))}</li>" for item in items if str(item).strip())
-                blocks.append(rendered and f"<ul>{rendered}</ul>" or "<p>None</p>")
+                blocks.append((rendered and f"<ul>{rendered}</ul>") or "<p>None</p>")
             else:
                 blocks.append("<p>None</p>")
         return "".join(blocks)

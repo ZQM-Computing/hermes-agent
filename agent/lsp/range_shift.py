@@ -146,4 +146,4 @@ def shift_baseline(baseline: List[Dict[str, Any]],
     return out
 
 
-__all__ = ["build_line_shift", "shift_diagnostic_range", "shift_baseline"]
+__all__ = ["build_line_shift", "shift_baseline", "shift_diagnostic_range"]

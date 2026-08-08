@@ -224,6 +224,6 @@ def policy_for_source(gateway_config: Any, source: Any) -> SlashAccessPolicy:
 
 __all__ = [
     "SlashAccessPolicy",
-    "policy_from_extra",
     "policy_for_source",
+    "policy_from_extra",
 ]

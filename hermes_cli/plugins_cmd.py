@@ -338,7 +338,7 @@ def _prompt_plugin_env_vars(manifest: dict, console) -> None:
     if not requires_env:
         return
 
-    from hermes_cli.config import get_env_value, save_env_value  # noqa: F811
+    from hermes_cli.config import get_env_value, save_env_value
     from hermes_constants import display_hermes_home
 
     # Normalise to list-of-dicts
@@ -1128,7 +1128,7 @@ def cmd_list(args: Any | None = None) -> None:
     if getattr(args, "plain", False):
         for name, version, _description, source, _dir, key in entries:
             status = _plugin_status(name, enabled, disabled, key=key)
-            print(f"{status:12} {source:8} {str(version):8} {name}")
+            print(f"{status:12} {source:8} {version!s:8} {name}")
         return
 
     if not entries:

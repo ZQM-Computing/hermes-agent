@@ -229,7 +229,7 @@ def _node_meta(node: dict[str, Any]) -> str:
 
 
 class _ChartBucket:
-    __slots__ = ("label", "ts", "skills", "memories", "nodes", "rec")
+    __slots__ = ("label", "memories", "nodes", "rec", "skills", "ts")
 
     def __init__(self, label: str, ts: float):
         self.label = label

@@ -2967,7 +2967,7 @@ This compaction should PRIORITISE preserving all information related to the focu
         if not _force_user_leading:
             _user_survives = any(
                 messages[i].get("role") == "user"
-                for i in range(0, compress_start)
+                for i in range(compress_start)
             ) or any(
                 messages[i].get("role") == "user"
                 for i in range(compress_end, n_messages)

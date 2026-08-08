@@ -30,7 +30,7 @@ def test_transient_retry_count_default(monkeypatch):
     from agent import auxiliary_client as ac
 
     # No config value -> default.
-    monkeypatch.setattr(ac, "load_config", lambda: {}, raising=False)
+    monkeypatch.setattr(ac, "load_config", dict, raising=False)
     with patch("hermes_cli.config.load_config", return_value={}), \
          patch("hermes_cli.config.cfg_get", return_value=None):
         assert ac._transient_retry_count() == ac._DEFAULT_TRANSIENT_RETRIES

@@ -22,7 +22,7 @@ pytestmark = pytest.mark.skipif(
 from agent.pet.generate import atlas
 
 PIL = pytest.importorskip("PIL")
-from PIL import Image, ImageDraw  # noqa: E402
+from PIL import Image, ImageDraw
 
 
 def _strip(n_blobs: int, *, transparent: bool = True, bg=(0, 255, 0, 255), size=(208, 208)) -> Image.Image:
@@ -125,7 +125,7 @@ def test_extract_strip_frames_drops_small_side_lobes_from_adjacent_frames():
 
     frame = atlas.extract_strip_frames(img, 1, method="components")[0]
     alpha = frame.getchannel("A")
-    left_edge_mass = sum(1 for x in range(0, 36) for y in range(frame.height) if alpha.getpixel((x, y)) > 16)
+    left_edge_mass = sum(1 for x in range(36) for y in range(frame.height) if alpha.getpixel((x, y)) > 16)
     right_edge_mass = sum(1 for x in range(frame.width - 36, frame.width) for y in range(frame.height) if alpha.getpixel((x, y)) > 16)
     assert left_edge_mass == 0
     assert right_edge_mass == 0

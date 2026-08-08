@@ -1069,7 +1069,7 @@ def handle_function_call(
     # tool name, not the bridge.
     _ts_mod = None
     try:
-        from tools import tool_search as _ts_mod  # noqa: F401
+        from tools import tool_search as _ts_mod
     except Exception:
         _ts_mod = None
 
@@ -1340,7 +1340,7 @@ def handle_function_call(
         return result
 
     except Exception as e:
-        error_msg = f"Error executing {function_name}: {str(e)}"
+        error_msg = f"Error executing {function_name}: {e!s}"
         logger.exception(error_msg)
         return json.dumps({"error": _sanitize_tool_error(error_msg)}, ensure_ascii=False)
 

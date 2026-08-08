@@ -63,7 +63,7 @@ def has_azure_identity_installed() -> bool:
     Cheap check — does not walk the credential chain.
     """
     try:
-        import azure.identity  # noqa: F401
+        import azure.identity
         return True
     except Exception:
         return False
@@ -97,7 +97,7 @@ def _require_azure_identity():
             ) from exc
 
         # Retry import after lazy install.
-        import azure.identity as _ai  # noqa: WPS440
+        import azure.identity as _ai
         return _ai
 
 
@@ -541,8 +541,8 @@ def build_bearer_http_client(token_provider: Callable[[], str], **httpx_kwargs: 
 
 
 __all__ = [
-    "EntraIdentityConfig",
     "SCOPE_AI_AZURE_DEFAULT",
+    "EntraIdentityConfig",
     "build_bearer_http_client",
     "build_credential",
     "build_token_provider",

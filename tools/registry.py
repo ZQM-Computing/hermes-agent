@@ -79,9 +79,17 @@ class ToolEntry:
     """Metadata for a single registered tool."""
 
     __slots__ = (
-        "name", "toolset", "schema", "handler", "check_fn",
-        "requires_env", "is_async", "description", "emoji",
-        "max_result_size_chars", "dynamic_schema_overrides",
+        "check_fn",
+        "description",
+        "dynamic_schema_overrides",
+        "emoji",
+        "handler",
+        "is_async",
+        "max_result_size_chars",
+        "name",
+        "requires_env",
+        "schema",
+        "toolset",
     )
 
     def __init__(self, name, toolset, schema, handler, check_fn,

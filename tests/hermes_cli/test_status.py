@@ -28,9 +28,9 @@ def test_show_status_termux_gateway_section_skips_systemctl(monkeypatch, capsys,
     monkeypatch.setattr(status_mod, "resolve_requested_provider", lambda requested=None: "openai-codex", raising=False)
     monkeypatch.setattr(status_mod, "resolve_provider", lambda requested=None, **kwargs: "openai-codex", raising=False)
     monkeypatch.setattr(status_mod, "provider_label", lambda provider: "OpenAI Codex", raising=False)
-    monkeypatch.setattr(auth_mod, "get_nous_auth_status", lambda: {}, raising=False)
-    monkeypatch.setattr(auth_mod, "get_codex_auth_status", lambda: {}, raising=False)
-    monkeypatch.setattr(auth_mod, "get_xai_oauth_auth_status", lambda: {}, raising=False)
+    monkeypatch.setattr(auth_mod, "get_nous_auth_status", dict, raising=False)
+    monkeypatch.setattr(auth_mod, "get_codex_auth_status", dict, raising=False)
+    monkeypatch.setattr(auth_mod, "get_xai_oauth_auth_status", dict, raising=False)
     monkeypatch.setattr(gateway_mod, "find_gateway_pids", lambda exclude_pids=None: [], raising=False)
 
     def _unexpected_systemctl(*args, **kwargs):
@@ -70,9 +70,9 @@ def test_show_status_reports_nous_auth_error(monkeypatch, capsys, tmp_path):
         },
         raising=False,
     )
-    monkeypatch.setattr(auth_mod, "get_codex_auth_status", lambda: {}, raising=False)
-    monkeypatch.setattr(auth_mod, "get_qwen_auth_status", lambda: {}, raising=False)
-    monkeypatch.setattr(auth_mod, "get_xai_oauth_auth_status", lambda: {}, raising=False)
+    monkeypatch.setattr(auth_mod, "get_codex_auth_status", dict, raising=False)
+    monkeypatch.setattr(auth_mod, "get_qwen_auth_status", dict, raising=False)
+    monkeypatch.setattr(auth_mod, "get_xai_oauth_auth_status", dict, raising=False)
     monkeypatch.setattr(gateway_mod, "find_gateway_pids", lambda exclude_pids=None: [], raising=False)
 
     status_mod.show_status(SimpleNamespace(all=False, deep=False))
@@ -121,9 +121,9 @@ def test_show_status_reports_nous_inference_key_without_portal_login(monkeypatch
         raising=False,
     )
     monkeypatch.setattr(status_mod, "managed_nous_tools_enabled", lambda: False, raising=False)
-    monkeypatch.setattr(auth_mod, "get_codex_auth_status", lambda: {}, raising=False)
-    monkeypatch.setattr(auth_mod, "get_qwen_auth_status", lambda: {}, raising=False)
-    monkeypatch.setattr(auth_mod, "get_xai_oauth_auth_status", lambda: {}, raising=False)
+    monkeypatch.setattr(auth_mod, "get_codex_auth_status", dict, raising=False)
+    monkeypatch.setattr(auth_mod, "get_qwen_auth_status", dict, raising=False)
+    monkeypatch.setattr(auth_mod, "get_xai_oauth_auth_status", dict, raising=False)
     monkeypatch.setattr(gateway_mod, "find_gateway_pids", lambda exclude_pids=None: [], raising=False)
 
     status_mod.show_status(SimpleNamespace(all=False, deep=False))
@@ -150,10 +150,10 @@ def _base_xai_mocks(monkeypatch, tmp_path):
     monkeypatch.setattr(status_mod, "resolve_requested_provider", lambda requested=None: "openai-codex", raising=False)
     monkeypatch.setattr(status_mod, "resolve_provider", lambda requested=None, **kwargs: "openai-codex", raising=False)
     monkeypatch.setattr(status_mod, "provider_label", lambda provider: "OpenAI Codex", raising=False)
-    monkeypatch.setattr(auth_mod, "get_nous_auth_status", lambda: {}, raising=False)
-    monkeypatch.setattr(auth_mod, "get_codex_auth_status", lambda: {}, raising=False)
-    monkeypatch.setattr(auth_mod, "get_qwen_auth_status", lambda: {}, raising=False)
-    monkeypatch.setattr(auth_mod, "get_minimax_oauth_auth_status", lambda: {}, raising=False)
+    monkeypatch.setattr(auth_mod, "get_nous_auth_status", dict, raising=False)
+    monkeypatch.setattr(auth_mod, "get_codex_auth_status", dict, raising=False)
+    monkeypatch.setattr(auth_mod, "get_qwen_auth_status", dict, raising=False)
+    monkeypatch.setattr(auth_mod, "get_minimax_oauth_auth_status", dict, raising=False)
     monkeypatch.setattr(gateway_mod, "find_gateway_pids", lambda exclude_pids=None: [], raising=False)
     return status_mod
 

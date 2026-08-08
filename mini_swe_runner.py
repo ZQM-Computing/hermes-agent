@@ -332,7 +332,7 @@ class MiniSWERunner:
             msg = messages[i]
             
             if msg["role"] == "assistant":
-                if "tool_calls" in msg and msg["tool_calls"]:
+                if msg.get("tool_calls"):
                     # Assistant message with tool calls
                     content = ""
                     

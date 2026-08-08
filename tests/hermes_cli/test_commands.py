@@ -788,7 +788,7 @@ class TestSubcommandCompletion:
             "hermes_cli.tools_config._get_platform_tools",
             lambda *_a, **_k: {"web", "file"},
         )
-        monkeypatch.setattr("hermes_cli.config.load_config", lambda: {})
+        monkeypatch.setattr("hermes_cli.config.load_config", dict)
         monkeypatch.setattr(
             "hermes_cli.tools_config._get_plugin_toolset_keys",
             lambda: set(),
@@ -806,7 +806,7 @@ class TestSubcommandCompletion:
             "hermes_cli.tools_config._get_platform_tools",
             lambda *_a, **_k: {"web", "file"},
         )
-        monkeypatch.setattr("hermes_cli.config.load_config", lambda: {})
+        monkeypatch.setattr("hermes_cli.config.load_config", dict)
         monkeypatch.setattr(
             "hermes_cli.tools_config._get_plugin_toolset_keys",
             lambda: set(),
@@ -822,7 +822,7 @@ class TestSubcommandCompletion:
             "hermes_cli.tools_config._get_platform_tools",
             lambda *_a, **_k: set(),
         )
-        monkeypatch.setattr("hermes_cli.config.load_config", lambda: {})
+        monkeypatch.setattr("hermes_cli.config.load_config", dict)
         monkeypatch.setattr(
             "hermes_cli.tools_config._get_plugin_toolset_keys",
             lambda: set(),
@@ -838,7 +838,7 @@ class TestSubcommandCompletion:
             "hermes_cli.tools_config._get_platform_tools",
             lambda *_a, **_k: set(),
         )
-        monkeypatch.setattr("hermes_cli.config.load_config", lambda: {})
+        monkeypatch.setattr("hermes_cli.config.load_config", dict)
         monkeypatch.setattr(
             "hermes_cli.tools_config._get_plugin_toolset_keys",
             lambda: set(),
@@ -1830,7 +1830,7 @@ class TestDiscordSkillCommands:
 # Discord skill commands grouped by category
 # ---------------------------------------------------------------------------
 
-from hermes_cli.commands import discord_skill_commands_by_category  # noqa: E402
+from hermes_cli.commands import discord_skill_commands_by_category
 
 
 class TestDiscordSkillCommandsByCategory:

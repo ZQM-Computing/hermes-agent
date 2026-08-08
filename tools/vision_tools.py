@@ -106,7 +106,7 @@ _VISION_MAX_DOWNLOAD_BYTES = 50 * 1024 * 1024
 # through model_tools._run_async on a PER-THREAD event loop, so an asyncio
 # executor/semaphore bound to one loop cannot coordinate across them. A
 # ThreadPoolExecutor is loop- and thread-agnostic.
-import threading  # noqa: F401  (kept for downstream importers / patch targets)
+import threading
 
 
 def _detect_host_cpus() -> int:
@@ -1297,7 +1297,7 @@ async def vision_analyze_tool(
         return json.dumps(result, indent=2, ensure_ascii=False)
         
     except Exception as e:
-        error_msg = f"Error analyzing image: {str(e)}"
+        error_msg = f"Error analyzing image: {e!s}"
         logger.error("%s", error_msg, exc_info=True)
         
         # Detect vision capability errors — give the model a clear message
@@ -1777,7 +1777,7 @@ async def video_analyze_tool(
         return json.dumps(result, indent=2, ensure_ascii=False)
 
     except Exception as e:
-        error_msg = f"Error analyzing video: {str(e)}"
+        error_msg = f"Error analyzing video: {e!s}"
         logger.error("%s", error_msg, exc_info=True)
 
         err_str = str(e).lower()

@@ -1105,7 +1105,7 @@ class TestWebServerEndpoints:
     def test_elevenlabs_voices_unavailable_without_key(self, monkeypatch):
         import hermes_cli.web_server as web_server
 
-        monkeypatch.setattr(web_server, "load_env", lambda: {})
+        monkeypatch.setattr(web_server, "load_env", dict)
         monkeypatch.delenv("ELEVENLABS_API_KEY", raising=False)
 
         resp = self.client.get("/api/audio/elevenlabs/voices")
@@ -5870,7 +5870,6 @@ class TestDashboardPluginManifestExtensions:
 # monkeypatch that hook.
 # ---------------------------------------------------------------------------
 
-import sys
 
 
 skip_on_windows = pytest.mark.skipif(

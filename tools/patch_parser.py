@@ -410,7 +410,7 @@ def apply_v4a_operations(operations: List[PatchOperation],
                     errors.append(f"Failed to update {op.file_path}: {result[1]}")
 
         except Exception as e:
-            errors.append(f"Error processing {op.file_path}: {str(e)}")
+            errors.append(f"Error processing {op.file_path}: {e!s}")
 
     # Run lint on all modified/created files
     lint_results = {}

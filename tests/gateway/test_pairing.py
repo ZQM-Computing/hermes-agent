@@ -687,7 +687,7 @@ class TestUnreadablePairingFile:
 
         assert result == {}, "should fall back to empty dict, not raise"
         assert any(
-            "not readable" in rec.getMessage() and "#10270" not in rec.getMessage()
+            ("not readable" in rec.getMessage() and "#10270" not in rec.getMessage())
             or "not readable" in rec.getMessage()
             for rec in caplog.records
         ), f"expected a warning about unreadable pairing file, got {caplog.records!r}"

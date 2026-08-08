@@ -1418,7 +1418,7 @@ _permanent_approved: set = set()
 
 class _ApprovalEntry:
     """One pending dangerous-command approval inside a gateway session."""
-    __slots__ = ("event", "data", "result", "reason")
+    __slots__ = ("data", "event", "reason", "result")
 
     def __init__(self, data: dict):
         self.event = threading.Event()

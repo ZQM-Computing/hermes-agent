@@ -386,7 +386,7 @@ class TestAdapterInit:
         monkeypatch.setattr("gateway.run._load_gateway_config", lambda: {"agent": {"max_turns": 200}})
         monkeypatch.setattr(
             "gateway.run.GatewayRunner._load_reasoning_config",
-            staticmethod(lambda: {}),
+            staticmethod(dict),
         )
         monkeypatch.setattr("gateway.run.GatewayRunner._load_fallback_model", staticmethod(lambda: None))
         monkeypatch.setattr("gateway.run._current_max_iterations", lambda: 200)
@@ -423,10 +423,10 @@ class TestAdapterInit:
             },
         )
         monkeypatch.setattr("gateway.run._resolve_gateway_model", lambda: "primary/model")
-        monkeypatch.setattr("gateway.run._load_gateway_config", lambda: {})
+        monkeypatch.setattr("gateway.run._load_gateway_config", dict)
         monkeypatch.setattr(
             "gateway.run.GatewayRunner._load_reasoning_config",
-            staticmethod(lambda: {}),
+            staticmethod(dict),
         )
         monkeypatch.setattr("gateway.run.GatewayRunner._load_fallback_model", staticmethod(lambda: None))
         monkeypatch.setattr("gateway.run._current_max_iterations", lambda: 90)
@@ -461,10 +461,10 @@ class TestAdapterInit:
             },
         )
         monkeypatch.setattr("gateway.run._resolve_gateway_model", lambda: "primary/model")
-        monkeypatch.setattr("gateway.run._load_gateway_config", lambda: {})
+        monkeypatch.setattr("gateway.run._load_gateway_config", dict)
         monkeypatch.setattr(
             "gateway.run.GatewayRunner._load_reasoning_config",
-            staticmethod(lambda: {}),
+            staticmethod(dict),
         )
         monkeypatch.setattr("gateway.run.GatewayRunner._load_fallback_model", staticmethod(lambda: None))
         monkeypatch.setattr("gateway.run._current_max_iterations", lambda: 90)
@@ -3824,9 +3824,9 @@ def _patch_create_agent_runtime(monkeypatch, captured: dict, fake_agent_cls):
         },
     )
     monkeypatch.setattr("gateway.run._resolve_gateway_model", lambda: "global/model")
-    monkeypatch.setattr("gateway.run._load_gateway_config", lambda: {})
+    monkeypatch.setattr("gateway.run._load_gateway_config", dict)
     monkeypatch.setattr(
-        "gateway.run.GatewayRunner._load_reasoning_config", staticmethod(lambda: {})
+        "gateway.run.GatewayRunner._load_reasoning_config", staticmethod(dict)
     )
     monkeypatch.setattr(
         "gateway.run.GatewayRunner._load_fallback_model", staticmethod(lambda: None)

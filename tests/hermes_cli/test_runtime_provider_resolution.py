@@ -310,7 +310,7 @@ def test_resolve_runtime_provider_uses_qwen_pool_entry(monkeypatch):
 
 
 def test_resolve_provider_alias_qwen(monkeypatch):
-    monkeypatch.setattr(rp.auth_mod, "_load_auth_store", lambda: {})
+    monkeypatch.setattr(rp.auth_mod, "_load_auth_store", dict)
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
     assert rp.resolve_provider("qwen-portal") == "qwen-oauth"
@@ -327,7 +327,7 @@ def test_qwen_oauth_auto_fallthrough_on_auth_failure(monkeypatch):
         "resolve_qwen_runtime_credentials",
         lambda **kw: (_ for _ in ()).throw(AuthError("stale", provider="qwen-oauth", code="qwen_auth_missing")),
     )
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.setenv("OPENROUTER_API_KEY", "test-or-key")
 
     # Should NOT raise — falls through to OpenRouter
@@ -475,7 +475,7 @@ def test_resolve_runtime_provider_lmstudio_normalizes_native_api_saved_base_url(
 
 def test_resolve_runtime_provider_openrouter_explicit(monkeypatch):
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "openrouter")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.delenv("OPENAI_BASE_URL", raising=False)
     monkeypatch.delenv("OPENROUTER_BASE_URL", raising=False)
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
@@ -508,7 +508,7 @@ def test_resolve_runtime_provider_auto_uses_openrouter_pool(monkeypatch):
             return _Entry()
 
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "openrouter")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.setattr(rp, "load_pool", lambda provider: _Pool())
     monkeypatch.delenv("OPENAI_BASE_URL", raising=False)
     monkeypatch.delenv("OPENROUTER_BASE_URL", raising=False)
@@ -538,7 +538,7 @@ def test_resolve_runtime_provider_openrouter_explicit_api_key_skips_pool(monkeyp
             return _Entry()
 
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "openrouter")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.setattr(rp, "load_pool", lambda provider: _Pool())
     monkeypatch.delenv("OPENAI_BASE_URL", raising=False)
     monkeypatch.delenv("OPENROUTER_BASE_URL", raising=False)
@@ -606,7 +606,7 @@ def test_openrouter_key_takes_priority_over_openai_key(monkeypatch):
     sent to OpenRouter instead of their OPENROUTER_API_KEY.
     """
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "openrouter")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.delenv("OPENAI_BASE_URL", raising=False)
     monkeypatch.delenv("OPENROUTER_BASE_URL", raising=False)
     monkeypatch.setenv("OPENAI_API_KEY", "sk-openai-should-lose")
@@ -620,7 +620,7 @@ def test_openrouter_key_takes_priority_over_openai_key(monkeypatch):
 def test_openai_key_used_when_no_openrouter_key(monkeypatch):
     """OPENAI_API_KEY is used as fallback when OPENROUTER_API_KEY is not set."""
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "openrouter")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.delenv("OPENAI_BASE_URL", raising=False)
     monkeypatch.delenv("OPENROUTER_BASE_URL", raising=False)
     monkeypatch.setenv("OPENAI_API_KEY", "sk-openai-fallback")
@@ -1213,7 +1213,7 @@ def test_explicit_openrouter_skips_openai_base_url(monkeypatch):
     (which may point to a custom endpoint) must not override the
     OpenRouter base URL.  Regression test for #874."""
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "openrouter")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.setenv("OPENAI_BASE_URL", "https://my-custom-llm.example.com/v1")
     monkeypatch.setenv("OPENROUTER_API_KEY", "or-test-key")
     monkeypatch.delenv("OPENROUTER_BASE_URL", raising=False)
@@ -1241,7 +1241,7 @@ def test_explicit_openrouter_honors_openrouter_base_url_over_pool(monkeypatch):
             return _Entry()
 
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "openrouter")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.setattr(rp, "load_pool", lambda provider: _Pool())
     monkeypatch.setenv("OPENROUTER_BASE_URL", "https://mirror.example.com/v1")
     monkeypatch.setenv("OPENROUTER_API_KEY", "mirror-key")
@@ -1265,7 +1265,7 @@ def test_resolve_requested_provider_precedence(monkeypatch):
     assert rp.resolve_requested_provider("openrouter") == "openrouter"
     assert rp.resolve_requested_provider() == "openai-codex"
 
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     assert rp.resolve_requested_provider() == "nous"
 
     monkeypatch.delenv("HERMES_INFERENCE_PROVIDER", raising=False)
@@ -1468,7 +1468,7 @@ def test_anthropic_messages_in_valid_api_modes():
 def test_api_key_provider_anthropic_url_auto_detection(monkeypatch):
     """API-key providers with /anthropic base URL should auto-detect anthropic_messages mode."""
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "minimax")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.setenv("MINIMAX_API_KEY", "test-minimax-key")
     monkeypatch.setenv("MINIMAX_BASE_URL", "https://api.minimax.io/anthropic")
 
@@ -1495,7 +1495,7 @@ def test_api_key_provider_explicit_api_mode_config(monkeypatch):
 def test_minimax_default_url_uses_anthropic_messages(monkeypatch):
     """MiniMax with default /anthropic URL should auto-detect anthropic_messages mode."""
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "minimax")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.setenv("MINIMAX_API_KEY", "test-minimax-key")
     monkeypatch.delenv("MINIMAX_BASE_URL", raising=False)
 
@@ -1509,7 +1509,7 @@ def test_minimax_default_url_uses_anthropic_messages(monkeypatch):
 def test_minimax_v1_url_uses_chat_completions(monkeypatch):
     """MiniMax with /v1 base URL should use chat_completions (user override for regions where /anthropic 404s)."""
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "minimax")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.setenv("MINIMAX_API_KEY", "test-minimax-key")
     monkeypatch.setenv("MINIMAX_BASE_URL", "https://api.minimax.chat/v1")
 
@@ -1523,7 +1523,7 @@ def test_minimax_v1_url_uses_chat_completions(monkeypatch):
 def test_minimax_cn_v1_url_uses_chat_completions(monkeypatch):
     """MiniMax-CN with /v1 base URL should use chat_completions (user override)."""
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "minimax-cn")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.setenv("MINIMAX_CN_API_KEY", "test-minimax-cn-key")
     monkeypatch.setenv("MINIMAX_CN_BASE_URL", "https://api.minimaxi.com/v1")
 
@@ -1599,7 +1599,7 @@ def test_minimax_config_base_url_ignored_for_different_provider(monkeypatch):
 def test_alibaba_default_coding_intl_endpoint_uses_chat_completions(monkeypatch):
     """Alibaba default coding-intl /v1 URL should use chat_completions mode."""
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "alibaba")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.setenv("DASHSCOPE_API_KEY", "test-dashscope-key")
     monkeypatch.delenv("DASHSCOPE_BASE_URL", raising=False)
 
@@ -1613,7 +1613,7 @@ def test_alibaba_default_coding_intl_endpoint_uses_chat_completions(monkeypatch)
 def test_alibaba_anthropic_endpoint_override_uses_anthropic_messages(monkeypatch):
     """Alibaba with /apps/anthropic URL override should auto-detect anthropic_messages mode."""
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "alibaba")
-    monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+    monkeypatch.setattr(rp, "_get_model_config", dict)
     monkeypatch.setenv("DASHSCOPE_API_KEY", "test-dashscope-key")
     monkeypatch.setenv("DASHSCOPE_BASE_URL", "https://coding-intl.dashscope.aliyuncs.com/apps/anthropic")
 
@@ -1846,7 +1846,7 @@ def test_auto_detected_nous_auth_failure_falls_through_to_openrouter(monkeypatch
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.delenv("OPENAI_BASE_URL", raising=False)
     monkeypatch.delenv("OPENROUTER_BASE_URL", raising=False)
-    monkeypatch.setattr(rp, "load_config", lambda: {})
+    monkeypatch.setattr(rp, "load_config", dict)
 
     # resolve_provider returns "nous" (stale active_provider in auth.json)
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "nous")
@@ -1877,7 +1877,7 @@ def test_auto_detected_codex_auth_failure_falls_through_to_openrouter(monkeypatc
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.delenv("OPENAI_BASE_URL", raising=False)
     monkeypatch.delenv("OPENROUTER_BASE_URL", raising=False)
-    monkeypatch.setattr(rp, "load_config", lambda: {})
+    monkeypatch.setattr(rp, "load_config", dict)
 
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "openai-codex")
     monkeypatch.setattr(rp, "load_pool", lambda p: type("P", (), {
@@ -1902,7 +1902,7 @@ def test_explicit_nous_auth_failure_still_raises(monkeypatch):
     import pytest
 
     monkeypatch.setenv("OPENROUTER_API_KEY", "test-or-key")
-    monkeypatch.setattr(rp, "load_config", lambda: {})
+    monkeypatch.setattr(rp, "load_config", dict)
 
     monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "nous")
     monkeypatch.setattr(rp, "load_pool", lambda p: type("P", (), {
@@ -1927,7 +1927,7 @@ def test_openrouter_provider_not_affected_by_custom_fix(monkeypatch):
     monkeypatch.delenv("OPENAI_BASE_URL", raising=False)
     monkeypatch.delenv("OPENROUTER_BASE_URL", raising=False)
     monkeypatch.setenv("OPENROUTER_API_KEY", "test-or-key")
-    monkeypatch.setattr(rp, "load_config", lambda: {})
+    monkeypatch.setattr(rp, "load_config", dict)
 
     resolved = rp.resolve_runtime_provider(requested="openrouter")
     assert resolved["provider"] == "openrouter"
@@ -2248,7 +2248,7 @@ class TestAzureFoundryResolution:
         monkeypatch.setenv("AZURE_FOUNDRY_API_KEY", "az-key")
         monkeypatch.delenv("AZURE_FOUNDRY_BASE_URL", raising=False)
         monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "azure-foundry")
-        monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+        monkeypatch.setattr(rp, "_get_model_config", dict)
         monkeypatch.setattr(rp, "load_pool", lambda provider: None)
 
         with pytest.raises(rp.AuthError, match="base URL"):
@@ -2601,7 +2601,7 @@ class TestTencentTokenhubRuntimeResolution:
 
     def test_resolves_with_env_key(self, monkeypatch):
         monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "tencent-tokenhub")
-        monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+        monkeypatch.setattr(rp, "_get_model_config", dict)
         monkeypatch.setenv("TOKENHUB_API_KEY", "test-tokenhub-key")
         monkeypatch.delenv("TOKENHUB_BASE_URL", raising=False)
 
@@ -2615,7 +2615,7 @@ class TestTencentTokenhubRuntimeResolution:
 
     def test_custom_base_url_from_env(self, monkeypatch):
         monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "tencent-tokenhub")
-        monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+        monkeypatch.setattr(rp, "_get_model_config", dict)
         monkeypatch.setenv("TOKENHUB_API_KEY", "test-tokenhub-key")
         monkeypatch.setenv("TOKENHUB_BASE_URL", "https://custom-proxy.example.com/v1")
 
@@ -2657,7 +2657,7 @@ class TestTencentTokenhubRuntimeResolution:
 
     def test_explicit_override_skips_env(self, monkeypatch):
         monkeypatch.setattr(rp, "resolve_provider", lambda *a, **k: "tencent-tokenhub")
-        monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+        monkeypatch.setattr(rp, "_get_model_config", dict)
         monkeypatch.setenv("TOKENHUB_API_KEY", "env-key-should-lose")
         monkeypatch.delenv("TOKENHUB_BASE_URL", raising=False)
 

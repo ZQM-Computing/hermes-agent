@@ -25,8 +25,8 @@ def _ensure_telegram_mock():
 
 _ensure_telegram_mock()
 
-from plugins.platforms.telegram import adapter as tg_adapter  # noqa: E402
-from plugins.platforms.telegram.adapter import TelegramAdapter  # noqa: E402
+from plugins.platforms.telegram import adapter as tg_adapter
+from plugins.platforms.telegram.adapter import TelegramAdapter
 
 
 @pytest.mark.asyncio
@@ -66,7 +66,7 @@ async def test_connect_retries_when_initialize_wall_deadline_expires(monkeypatch
 
     adapter = TelegramAdapter(PlatformConfig(enabled=True, token="test-token"))
     monkeypatch.setattr(adapter, "_acquire_platform_lock", lambda *a, **k: True)
-    monkeypatch.setattr(adapter, "_fallback_ips", lambda: [])
+    monkeypatch.setattr(adapter, "_fallback_ips", list)
     monkeypatch.setattr(adapter, "_delete_webhook_best_effort", AsyncMock())
     monkeypatch.setattr(adapter, "_start_polling_resilient", AsyncMock(return_value=True))
     monkeypatch.setattr(adapter, "_polling_heartbeat_loop", AsyncMock(return_value=None))

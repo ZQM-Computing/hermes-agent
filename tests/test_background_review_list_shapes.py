@@ -146,7 +146,7 @@ class TestRunner:
     def run(self, name, fn):
         try:
             fn()
-        except Exception as e:  # noqa: BLE001 — runner summary uses it
+        except Exception as e:
             import traceback
             self.failed.append((name, e, traceback.format_exc()))
         else:

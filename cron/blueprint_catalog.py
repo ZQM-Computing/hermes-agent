@@ -28,17 +28,17 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
 __all__ = [
-    "BlueprintSlot",
-    "AutomationBlueprint",
     "CATALOG",
-    "get_blueprint",
+    "WEEKDAY_PRESETS",
+    "AutomationBlueprint",
+    "BlueprintFillError",
+    "BlueprintSlot",
+    "blueprint_catalog_entry",
+    "blueprint_deeplink",
     "blueprint_form_schema",
     "blueprint_slash_command",
-    "blueprint_deeplink",
-    "blueprint_catalog_entry",
     "fill_blueprint",
-    "BlueprintFillError",
-    "WEEKDAY_PRESETS",
+    "get_blueprint",
 ]
 
 
@@ -605,7 +605,7 @@ def _resolve_schedule(blueprint: AutomationBlueprint, values: Dict[str, Any]) ->
     sched = blueprint.schedule_template
 
     # A free-text `schedule` slot passes through verbatim (full flexibility).
-    if "schedule" in values and values["schedule"]:
+    if values.get("schedule"):
         return str(values["schedule"])
 
     repl: Dict[str, str] = {}

@@ -279,6 +279,6 @@ def first_threat_message(content: str, scope: str = "strict") -> Optional[str]:
 __all__ = [
     "INVISIBLE_CHARS",
     "MAX_SCAN_CHARS",
-    "scan_for_threats",
     "first_threat_message",
+    "scan_for_threats",
 ]

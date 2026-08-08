@@ -45,7 +45,7 @@ class TestSendMessageBlocks:
         adapter, client = _make_adapter({"rich_blocks": True})
         await adapter.send("C1", RICH_MD)
         kwargs = client.chat_postMessage.await_args.kwargs
-        assert "blocks" in kwargs and kwargs["blocks"]
+        assert kwargs.get("blocks")
         # text fallback is ALWAYS present alongside blocks (notifications/a11y)
         assert kwargs["text"]
         types = [b["type"] for b in kwargs["blocks"]]
@@ -92,7 +92,7 @@ class TestEditMessageBlocks:
         adapter, client = _make_adapter({"rich_blocks": True})
         await adapter.edit_message("C1", "111.222", RICH_MD, finalize=True)
         kwargs = client.chat_update.await_args.kwargs
-        assert "blocks" in kwargs and kwargs["blocks"]
+        assert kwargs.get("blocks")
         assert kwargs["text"]
 
     @pytest.mark.asyncio

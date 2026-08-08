@@ -29,9 +29,9 @@ from pathlib import Path
 from typing import Callable, Dict, Generic, Optional, TypeVar
 
 __all__ = [
-    "FetchResult",
     "CachedFetch",
     "DiskCache",
+    "FetchResult",
     "is_valid_env_name",
     "resolve_cache_home",
 ]
@@ -43,7 +43,7 @@ __all__ = [
 # here so backends that import from ``_cache`` keep working.
 # ---------------------------------------------------------------------------
 
-from agent.secret_sources.base import (  # noqa: E402
+from agent.secret_sources.base import (
     FetchResult,
     is_valid_env_name,
 )

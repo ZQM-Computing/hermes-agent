@@ -88,7 +88,7 @@ class TestRuntimeModelConfigPersistsEntryIdentity:
         assert config["provider"] == "custom:mimo-v2.5-pro"
 
     def test_keeps_bare_custom_when_no_entry_matches(self, monkeypatch):
-        monkeypatch.setattr(rp, "load_config", lambda: {})
+        monkeypatch.setattr(rp, "load_config", dict)
 
         from tui_gateway.server import _runtime_model_config
 
@@ -243,7 +243,7 @@ class TestBareCustomNoBaseUrlHealsFromConfig:
     ):
         # config.model.provider is bare "custom" and no entry is named → no
         # routable identity to recover; caller keeps its fallback behaviour.
-        monkeypatch.setattr(rp, "load_config", lambda: {})
+        monkeypatch.setattr(rp, "load_config", dict)
         monkeypatch.setattr(rp, "_get_model_config", lambda: {"provider": "custom"})
         monkeypatch.delenv("HERMES_INFERENCE_PROVIDER", raising=False)
 
@@ -284,8 +284,8 @@ class TestBareCustomNoBaseUrlHealsFromConfig:
         """No recoverable identity: do NOT restore bare "custom" as a routable
         override — leave it unset so resume falls back to the configured
         default instead of the broken OpenRouter route."""
-        monkeypatch.setattr(rp, "load_config", lambda: {})
-        monkeypatch.setattr(rp, "_get_model_config", lambda: {})
+        monkeypatch.setattr(rp, "load_config", dict)
+        monkeypatch.setattr(rp, "_get_model_config", dict)
         monkeypatch.delenv("HERMES_INFERENCE_PROVIDER", raising=False)
 
         from tui_gateway.server import _stored_session_runtime_overrides

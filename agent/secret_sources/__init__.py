@@ -30,7 +30,7 @@ package.  A generic ``command`` source is a possible future exception;
 OS keystores (Keychain/DPAPI/libsecret) are under discussion.
 """
 
-from agent.secret_sources.base import (  # noqa: F401
+from agent.secret_sources.base import (
     SECRET_SOURCE_API_VERSION,
     ErrorKind,
     FetchResult,

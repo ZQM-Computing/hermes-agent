@@ -1230,7 +1230,7 @@ __all__ = [
     "COMPACTION_STATUS",
     "COMPACTION_STATUS_MARKER",
     "check_compression_model_feasibility",
-    "replay_compression_warning",
     "compress_context",
+    "replay_compression_warning",
     "try_shrink_image_parts_in_messages",
 ]

@@ -68,7 +68,7 @@ import plugins.platforms.slack.adapter as _slack_mod
 
 _slack_mod.SLACK_AVAILABLE = True
 
-from plugins.platforms.slack.adapter import SlackAdapter  # noqa: E402
+from plugins.platforms.slack.adapter import SlackAdapter
 
 
 async def _pending_for_fake_task():
@@ -2617,8 +2617,7 @@ class TestReactions:
         assert "1234567890.000001" in adapter._reacting_message_ids
 
         # Simulate the base class calling on_processing_start
-        from gateway.platforms.base import MessageEvent, MessageType, SessionSource
-        from gateway.config import Platform
+        from gateway.platforms.base import MessageType, SessionSource
 
         source = SessionSource(
             platform=Platform.SLACK,
@@ -2660,12 +2659,10 @@ class TestReactions:
         adapter._app.client.reactions_remove = AsyncMock()
 
         from gateway.platforms.base import (
-            MessageEvent,
             MessageType,
             SessionSource,
             ProcessingOutcome,
         )
-        from gateway.config import Platform
 
         source = SessionSource(
             platform=Platform.SLACK,
@@ -2736,12 +2733,10 @@ class TestReactions:
 
         # Hooks should also be no-ops when disabled
         from gateway.platforms.base import (
-            MessageEvent,
             MessageType,
             SessionSource,
             ProcessingOutcome,
         )
-        from gateway.config import Platform
 
         source = SessionSource(
             platform=Platform.SLACK,

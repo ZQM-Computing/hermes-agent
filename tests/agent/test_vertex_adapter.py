@@ -77,7 +77,7 @@ def vertex_adapter(monkeypatch):
     va = importlib.reload(va)
     va._creds_cache.clear()
     # Neutralize config.yaml by default; individual tests re-patch _vertex_config.
-    monkeypatch.setattr(va, "_vertex_config", lambda: {})
+    monkeypatch.setattr(va, "_vertex_config", dict)
     return va
 
 
@@ -224,7 +224,7 @@ def test_adc_failure_falls_back_to_service_account(monkeypatch, tmp_path):
     import agent.vertex_adapter as va
     va = importlib.reload(va)
     va._creds_cache.clear()
-    monkeypatch.setattr(va, "_vertex_config", lambda: {})
+    monkeypatch.setattr(va, "_vertex_config", dict)
     # A resolvable SA path means the primary cache key is the file (not __adc__),
     # so this exercises the direct-SA path.
     token, project = va.get_vertex_credentials()

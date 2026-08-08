@@ -280,7 +280,6 @@ class IRCAdapter(BasePlatformAdapter):
 
     async def send_typing(self, chat_id: str, metadata=None) -> None:
         """IRC has no typing indicator — no-op."""
-        pass
 
     async def get_chat_info(self, chat_id: str) -> Dict[str, Any]:
         is_channel = chat_id.startswith("#") or chat_id.startswith("&")

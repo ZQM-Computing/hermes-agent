@@ -61,7 +61,7 @@ def _require_numpy():
     voice extra isn't installed they get a clear error instead of a top-level
     ImportError that would break the whole adapter import.
     """
-    import numpy as np  # noqa: PLC0415 — intentional lazy import
+    import numpy as np
     return np
 
 # Discord-native frame geometry (matches discord.opus.Encoder).
@@ -82,8 +82,15 @@ class MixerChild:
     """
 
     __slots__ = (
-        "name", "_pcm", "_pos", "loop", "gain",
-        "is_speech", "fade_frames", "_fade_done", "_finished",
+        "_fade_done",
+        "_finished",
+        "_pcm",
+        "_pos",
+        "fade_frames",
+        "gain",
+        "is_speech",
+        "loop",
+        "name",
     )
 
     def __init__(

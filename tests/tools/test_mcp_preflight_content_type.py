@@ -104,7 +104,7 @@ def _handler(status: int = 200,
             pb = post_body if post_body else body
             self._write(sc, ct, pb)
 
-        def log_message(self, format, *args):  # noqa: A002
+        def log_message(self, format, *args):
             pass
 
     return _H

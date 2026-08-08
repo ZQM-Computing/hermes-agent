@@ -278,7 +278,7 @@ def _probe_anthropic_messages(base_url: str,
         try:
             body = exc.read().decode("utf-8", errors="replace")
             lowered = body.lower()
-            if "anthropic" in lowered or '"type"' in lowered and '"error"' in lowered:
+            if "anthropic" in lowered or ('"type"' in lowered and '"error"' in lowered):
                 return True
             # Pre-Azure-v1 Azure Foundry returns a plain 404 for
             # Anthropic-style calls on non-Anthropic deployments.  A

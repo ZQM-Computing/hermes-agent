@@ -42,7 +42,7 @@ class TestInstall:
         monkeypatch.setattr(bt, "_running_in_docker", lambda: False)
         monkeypatch.setattr("tools.lazy_deps._allow_lazy_installs", lambda: True)
         monkeypatch.setattr(bt, "_find_agent_browser", lambda: "/x/agent-browser")
-        monkeypatch.setattr(bt, "_build_browser_env", lambda: {})
+        monkeypatch.setattr(bt, "_build_browser_env", dict)
         monkeypatch.setattr(bt, "_chromium_installed", lambda: True)
 
         captured = {}
@@ -61,7 +61,7 @@ class TestInstall:
         monkeypatch.setattr(bt, "_running_in_docker", lambda: False)
         monkeypatch.setattr("tools.lazy_deps._allow_lazy_installs", lambda: True)
         monkeypatch.setattr(bt, "_find_agent_browser", lambda: "npx agent-browser")
-        monkeypatch.setattr(bt, "_build_browser_env", lambda: {})
+        monkeypatch.setattr(bt, "_build_browser_env", dict)
         monkeypatch.setattr(bt, "_chromium_installed", lambda: True)
         monkeypatch.setattr(bt.shutil, "which", lambda _: "/usr/bin/npx")
 
@@ -79,7 +79,7 @@ class TestInstall:
         monkeypatch.setattr(bt, "_running_in_docker", lambda: False)
         monkeypatch.setattr("tools.lazy_deps._allow_lazy_installs", lambda: True)
         monkeypatch.setattr(bt, "_find_agent_browser", lambda: "/x/agent-browser")
-        monkeypatch.setattr(bt, "_build_browser_env", lambda: {})
+        monkeypatch.setattr(bt, "_build_browser_env", dict)
         monkeypatch.setattr(
             bt.subprocess, "run",
             lambda *a, **k: SimpleNamespace(returncode=1, stdout="", stderr="boom"),
@@ -92,7 +92,7 @@ class TestOneShot:
         monkeypatch.setattr(bt, "_running_in_docker", lambda: False)
         monkeypatch.setattr("tools.lazy_deps._allow_lazy_installs", lambda: True)
         monkeypatch.setattr(bt, "_find_agent_browser", lambda: "/x/agent-browser")
-        monkeypatch.setattr(bt, "_build_browser_env", lambda: {})
+        monkeypatch.setattr(bt, "_build_browser_env", dict)
         monkeypatch.setattr(bt, "_chromium_installed", lambda: True)
 
         runs = []

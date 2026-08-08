@@ -224,7 +224,7 @@ class WebToolsTester:
                     )
                     
             except Exception as e:
-                self.log_result(f"Search: {query[:30]}...", "failed", f"Exception: {type(e).__name__}: {str(e)}")
+                self.log_result(f"Search: {query[:30]}...", "failed", f"Exception: {type(e).__name__}: {e!s}")
                 if self.verbose:
                     import traceback
                     print(f"    Traceback: {traceback.format_exc()}")
@@ -335,7 +335,7 @@ class WebToolsTester:
                             print(f"    {detail}")
                     
             except Exception as e:
-                self.log_result("Extract (no LLM)", "failed", f"Exception: {type(e).__name__}: {str(e)}")
+                self.log_result("Extract (no LLM)", "failed", f"Exception: {type(e).__name__}: {e!s}")
                 if self.verbose:
                     import traceback
                     print(f"    Traceback: {traceback.format_exc()}")

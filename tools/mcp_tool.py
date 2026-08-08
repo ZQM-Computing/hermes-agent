@@ -1476,15 +1476,27 @@ class MCPServerTask:
     """
 
     __slots__ = (
-        "name", "session", "tool_timeout",
-        "_task", "_ready", "_shutdown_event", "_reconnect_event",
-        "_tools", "_error", "_config",
-        "_sampling", "_elicitation",
-        "_registered_tool_names", "_auth_type", "_refresh_lock",
-        "_rpc_lock", "_pending_refresh_tasks",
+        "_auth_type",
+        "_config",
+        "_elicitation",
+        "_error",
         "_pending_call_context",
-        "initialize_result", "_ping_unsupported",
+        "_pending_refresh_tasks",
+        "_ping_unsupported",
+        "_ready",
+        "_reconnect_event",
         "_reconnect_retries",
+        "_refresh_lock",
+        "_registered_tool_names",
+        "_rpc_lock",
+        "_sampling",
+        "_shutdown_event",
+        "_task",
+        "_tools",
+        "initialize_result",
+        "name",
+        "session",
+        "tool_timeout",
     )
 
     def __init__(self, name: str):

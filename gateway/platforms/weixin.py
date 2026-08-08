@@ -610,7 +610,7 @@ def _assert_weixin_cdn_url(url: str) -> None:
         parsed = urlparse(url)
         scheme = parsed.scheme.lower()
         host = parsed.hostname or ""
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         raise ValueError(f"Unparseable media URL: {url!r}") from exc
 
     if scheme not in {"http", "https"}:
@@ -1597,8 +1597,8 @@ class WeixinAdapter(BasePlatformAdapter):
                 self._poll_session,
                 cdn_base_url=self._cdn_base_url,
                 encrypted_query_param=media.get("encrypt_query_param"),
-                aes_key_b64=(item.get("image_item") or {}).get("aeskey")
-                and base64.b64encode(bytes.fromhex(str((item.get("image_item") or {}).get("aeskey")))).decode("ascii")
+                aes_key_b64=((item.get("image_item") or {}).get("aeskey")
+                and base64.b64encode(bytes.fromhex(str((item.get("image_item") or {}).get("aeskey")))).decode("ascii"))
                 or media.get("aes_key"),
                 full_url=media.get("full_url"),
                 timeout_seconds=30.0,

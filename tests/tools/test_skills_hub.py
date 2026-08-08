@@ -573,7 +573,7 @@ class TestSkillsShSource:
             if url.endswith("/contents/"):
                 # Root listing for shallow scan — return empty so it falls through
                 resp.status_code = 200
-                resp.json = lambda: []
+                resp.json = list
                 return resp
             if "/contents/" in url:
                 # All contents API calls fail (candidate paths miss)
@@ -629,7 +629,7 @@ class TestSkillsShSource:
             resp = MagicMock()
             if url == root_url:
                 resp.status_code = 200
-                resp.json = lambda: []
+                resp.json = list
                 return resp
             resp.status_code = 404
             return resp

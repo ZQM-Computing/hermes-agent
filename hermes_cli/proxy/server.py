@@ -292,9 +292,9 @@ async def run_server(
 
 
 __all__ = [
-    "create_app",
-    "run_server",
+    "AIOHTTP_AVAILABLE",
     "DEFAULT_HOST",
     "DEFAULT_PORT",
-    "AIOHTTP_AVAILABLE",
+    "create_app",
+    "run_server",
 ]

@@ -55,7 +55,7 @@ logger = logging.getLogger(__name__)
 # The terminal tool polls this during command execution so it can kill
 # long-running subprocesses immediately instead of blocking until timeout.
 # ---------------------------------------------------------------------------
-from tools.interrupt import is_interrupted, _interrupt_event  # noqa: F401 — re-exported
+from tools.interrupt import is_interrupted, _interrupt_event
 # display_hermes_home imported lazily at call site (stale-module safety during hermes update)
 
 
@@ -308,7 +308,7 @@ def _validate_workdir(workdir: str) -> str | None:
         for ch in workdir:
             if not _WORKDIR_SAFE_RE.match(ch):
                 return (
-                    f"Blocked: workdir contains disallowed character {repr(ch)}. "
+                    f"Blocked: workdir contains disallowed character {ch!r}. "
                     "Use a simple filesystem path without shell metacharacters."
                 )
         return "Blocked: workdir contains disallowed characters."
@@ -2602,7 +2602,7 @@ def terminal_tool(
                 return json.dumps({
                     "output": "",
                     "exit_code": -1,
-                    "error": f"Failed to start background process: {str(e)}"
+                    "error": f"Failed to start background process: {e!s}"
                 }, ensure_ascii=False)
         else:
             # Run foreground command with retry logic
@@ -2656,7 +2656,7 @@ def terminal_tool(
                     return json.dumps({
                         "output": "",
                         "exit_code": -1,
-                        "error": f"Command execution failed: {type(e).__name__}: {str(e)}"
+                        "error": f"Command execution failed: {type(e).__name__}: {e!s}"
                     }, ensure_ascii=False)
                 
                 # Got a result
@@ -2791,7 +2791,7 @@ def terminal_tool(
         return json.dumps({
             "output": "",
             "exit_code": -1,
-            "error": f"Failed to execute command: {str(e)}",
+            "error": f"Failed to execute command: {e!s}",
             "traceback": tb_str,
             "status": "error"
         }, ensure_ascii=False)
@@ -2892,7 +2892,7 @@ def check_terminal_requirements() -> bool:
             return True
 
         elif env_type == "daytona":
-            from daytona import Daytona  # noqa: F401 — SDK presence check
+            from daytona import Daytona
             return os.getenv("DAYTONA_API_KEY") is not None
 
         else:

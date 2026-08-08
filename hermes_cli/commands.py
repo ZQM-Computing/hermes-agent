@@ -2120,7 +2120,7 @@ class SlashCommandAutoSuggest(AutoSuggest):
         # Static subcommands
         if self._completer is not None and not self._completer._command_allowed(base_cmd):
             return None
-        if base_cmd in SUBCOMMANDS and SUBCOMMANDS[base_cmd]:
+        if SUBCOMMANDS.get(base_cmd):
             if " " not in sub_text:
                 for sub in SUBCOMMANDS[base_cmd]:
                     if sub.startswith(sub_lower) and sub != sub_lower:

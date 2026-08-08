@@ -154,7 +154,7 @@ def _find_subsequence(tokens: list[str], needle: list[str]) -> Optional[int]:
     if not tokens or not needle or len(needle) > len(tokens):
         return None
     cleaned = [_clean_token(t) for t in tokens]
-    for idx in range(0, len(cleaned) - len(needle) + 1):
+    for idx in range(len(cleaned) - len(needle) + 1):
         if cleaned[idx:idx + len(needle)] == needle:
             return idx
     return None

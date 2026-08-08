@@ -154,7 +154,7 @@ PROVIDER_ENV_VARS = (
 def _clear_provider_env(monkeypatch):
     for key in PROVIDER_ENV_VARS:
         monkeypatch.delenv(key, raising=False)
-    monkeypatch.setattr("hermes_cli.auth._load_auth_store", lambda: {})
+    monkeypatch.setattr("hermes_cli.auth._load_auth_store", dict)
 
 
 class TestResolveProvider:
@@ -1294,7 +1294,7 @@ class TestMinimaxOAuthProvider:
         # agent/auxiliary_client.py. The profile layer is the source
         # of truth; _get_aux_model_for_provider() reads from it first
         # and only falls back to the dict when no profile is registered.
-        import model_tools  # noqa: F401  -- triggers plugin discovery
+        import model_tools
         import providers
 
         profile = providers.get_provider_profile("minimax-oauth")

@@ -494,7 +494,7 @@ def managed_scope_check() -> None:
     try:
         from hermes_cli import managed_scope
         managed_dir = managed_scope.get_managed_dir()
-    except Exception:  # noqa: BLE001 — diagnostics must never crash
+    except Exception:
         return
     if managed_dir is None:
         return
@@ -752,7 +752,6 @@ def run_doctor(args):
                 known_providers = set(PROVIDER_REGISTRY.keys()) | {"openrouter", "custom", "auto"}
             except Exception:
                 _resolve_auth_provider = None
-                pass
             try:
                 from hermes_cli.config import get_compatible_custom_providers as _compatible_custom_providers
                 from hermes_cli.providers import (
@@ -1534,7 +1533,7 @@ def run_doctor(args):
                 issues,
             )
         try:
-            from daytona import Daytona  # noqa: F401 — SDK presence check
+            from daytona import Daytona
             check_ok("daytona SDK", "(installed)")
         except ImportError:
             _fail_and_issue(

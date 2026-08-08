@@ -188,7 +188,7 @@ def test_completion_cwd_prefers_profile_over_stale_env(monkeypatch, tmp_path):
     stale.mkdir()
 
     monkeypatch.setenv("TERMINAL_CWD", str(stale))
-    monkeypatch.setattr(server, "_load_cfg", lambda: {})
+    monkeypatch.setattr(server, "_load_cfg", dict)
     monkeypatch.setattr(server, "_profile_home", lambda name: home if name else None)
 
     assert server._completion_cwd({"profile": "ef-design"}) == str(profile_b)
@@ -232,7 +232,7 @@ def test_default_session_cwd_prefers_launch_config(monkeypatch, tmp_path):
     assert server._default_session_cwd() == str(configured)
 
     # No launch config → fall back to the process env var.
-    monkeypatch.setattr(server, "_load_cfg", lambda: {})
+    monkeypatch.setattr(server, "_load_cfg", dict)
     assert server._default_session_cwd() == str(stale)
 
 
@@ -732,7 +732,7 @@ def test_load_enabled_toolsets_accepts_plugin_env_after_discovery(monkeypatch):
     original_validate = toolsets.validate_toolset
 
     def fake_validate(name):
-        return name == "plugin_demo" and discovered["ready"] or original_validate(name)
+        return (name == "plugin_demo" and discovered["ready"]) or original_validate(name)
 
     monkeypatch.setattr(toolsets, "validate_toolset", fake_validate)
     monkeypatch.setitem(
@@ -6597,7 +6597,7 @@ def _stub_urlopen(monkeypatch, *, ok: bool):
         def __exit__(self, *_):
             return False
 
-    def _opener(_url, timeout=2.0):  # noqa: ARG001 — match urllib signature
+    def _opener(_url, timeout=2.0):
         if not ok:
             raise OSError("probe failed")
         return _Resp()
@@ -6619,7 +6619,7 @@ def _stub_urlopen_capture(monkeypatch, *, ok: bool):
         def __exit__(self, *_):
             return False
 
-    def _opener(url, timeout=2.0):  # noqa: ARG001 — match urllib signature
+    def _opener(url, timeout=2.0):
         urls.append(url)
         if not ok:
             raise OSError("probe failed")
@@ -6666,7 +6666,7 @@ def test_browser_manage_status_does_not_call_get_cdp_override(monkeypatch):
     monkeypatch.setenv("BROWSER_CDP_URL", "http://127.0.0.1:9222")
 
     fake = types.SimpleNamespace(
-        _get_cdp_override=lambda: pytest.fail(  # noqa: PT015 — fail loudly if called
+        _get_cdp_override=lambda: pytest.fail(
             "_get_cdp_override must not run on /browser status (network I/O)"
         )
     )
@@ -6878,7 +6878,7 @@ def test_browser_manage_connect_default_local_retries_after_launch(monkeypatch):
 
     attempts = {"n": 0}
 
-    def _opener(_url, timeout=2.0):  # noqa: ARG001 — match urllib signature
+    def _opener(_url, timeout=2.0):
         attempts["n"] += 1
         if attempts["n"] < 3:
             raise OSError("not ready")
@@ -7470,7 +7470,7 @@ def test_background_agent_kwargs_falls_back_to_root_max_turns(monkeypatch):
 
 
 def test_background_agent_kwargs_defaults_to_25(monkeypatch):
-    monkeypatch.setattr(server, "_load_cfg", lambda: {})
+    monkeypatch.setattr(server, "_load_cfg", dict)
 
     kwargs = server._background_agent_kwargs(_FakeAgentForBackground(), "task_1")
 

@@ -232,7 +232,7 @@ def test_main_top_level_tui_accepts_toolsets(monkeypatch, main_mod):
         "tools.mcp_tool",
         types.SimpleNamespace(discover_mcp_tools=lambda: None),
     )
-    monkeypatch.setattr(config_mod, "load_config", lambda: {})
+    monkeypatch.setattr(config_mod, "load_config", dict)
     monkeypatch.setattr(config_mod, "get_container_exec_info", lambda: None)
     monkeypatch.setitem(
         sys.modules,
@@ -589,7 +589,7 @@ def test_main_top_level_oneshot_accepts_toolsets(monkeypatch, main_mod):
         "tools.mcp_tool",
         types.SimpleNamespace(discover_mcp_tools=lambda: None),
     )
-    monkeypatch.setattr(config_mod, "load_config", lambda: {})
+    monkeypatch.setattr(config_mod, "load_config", dict)
     monkeypatch.setattr(config_mod, "get_container_exec_info", lambda: None)
     monkeypatch.setitem(
         sys.modules,
@@ -758,7 +758,7 @@ def test_oneshot_accepts_plugin_toolset_after_discovery(monkeypatch):
     original_validate = toolsets.validate_toolset
 
     def fake_validate(name):
-        return name == "plugin_demo" and discovered["ready"] or original_validate(name)
+        return (name == "plugin_demo" and discovered["ready"]) or original_validate(name)
 
     monkeypatch.setattr(toolsets, "validate_toolset", fake_validate)
     monkeypatch.setitem(

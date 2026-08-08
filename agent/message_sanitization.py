@@ -463,15 +463,15 @@ def _sanitize_structure_non_ascii(payload: Any) -> bool:
 
 __all__ = [
     "_SURROGATE_RE",
-    "close_interrupted_tool_sequence",
-    "_sanitize_surrogates",
-    "_sanitize_structure_surrogates",
-    "_sanitize_messages_surrogates",
     "_escape_invalid_chars_in_json_strings",
     "_repair_tool_call_arguments",
-    "_strip_non_ascii",
     "_sanitize_messages_non_ascii",
+    "_sanitize_messages_surrogates",
+    "_sanitize_structure_non_ascii",
+    "_sanitize_structure_surrogates",
+    "_sanitize_surrogates",
     "_sanitize_tools_non_ascii",
     "_strip_images_from_messages",
-    "_sanitize_structure_non_ascii",
+    "_strip_non_ascii",
+    "close_interrupted_tool_sequence",
 ]

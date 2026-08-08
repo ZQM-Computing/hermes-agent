@@ -156,7 +156,7 @@ def _start_desktop_cron_ticker(stop_event: "threading.Event", interval: int = 60
 
 def _warm_gateway_module() -> None:
     try:
-        import hermes_cli.gateway  # noqa: F401
+        import hermes_cli.gateway
     except Exception:
         pass
 
@@ -254,7 +254,7 @@ def _get_pty_active_session_files(app: "FastAPI") -> dict[str, Path]:
 app = FastAPI(title="Hermes Agent", version=__version__, lifespan=_lifespan)
 
 # Memory-provider OAuth connect routes live in the memory layer, not here.
-from hermes_cli.memory_oauth import router as _memory_oauth_router  # noqa: E402
+from hermes_cli.memory_oauth import router as _memory_oauth_router
 
 app.include_router(_memory_oauth_router)
 
@@ -2093,7 +2093,7 @@ async def fs_default_cwd():
 # these are thin, executor-offloaded wrappers (git/gh can block).
 # ---------------------------------------------------------------------------
 
-from hermes_cli import web_git as _web_git  # noqa: E402
+from hermes_cli import web_git as _web_git
 
 
 async def _git_op(fn, *args):
@@ -12516,7 +12516,6 @@ if sys.platform.startswith("win"):
 
         class PtyUnavailableError(RuntimeError):  # type: ignore[no-redef]
             """Stub when win_pty_bridge cannot be imported."""
-            pass
 else:
     try:
         from hermes_cli.pty_bridge import PtyBridge, PtyUnavailableError
@@ -12527,7 +12526,6 @@ else:
 
         class PtyUnavailableError(RuntimeError):  # type: ignore[no-redef]
             """Stub on platforms where pty_bridge can't be imported."""
-            pass
 
 _RESIZE_RE = re.compile(rb"\x1b\[RESIZE:(\d+);(\d+)\]")
 _PTY_READ_CHUNK_TIMEOUT = 0.2
@@ -15078,7 +15076,7 @@ _mount_plugin_api_routes()
 # SPA catch-all so /{full_path:path} doesn't swallow them.  These are
 # always mounted — the gate middleware decides whether to enforce auth,
 # not whether the routes exist.
-from hermes_cli.dashboard_auth.routes import router as _dashboard_auth_router  # noqa: E402
+from hermes_cli.dashboard_auth.routes import router as _dashboard_auth_router
 app.include_router(_dashboard_auth_router)
 
 mount_spa(app)

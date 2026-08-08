@@ -5213,7 +5213,7 @@ def run_conversation(
                 break
             
         except Exception as e:
-            error_msg = f"Error during OpenAI-compatible API call #{api_call_count}: {str(e)}"
+            error_msg = f"Error during OpenAI-compatible API call #{api_call_count}: {e!s}"
             try:
                 print(f"❌ {error_msg}")
             except (OSError, ValueError):
