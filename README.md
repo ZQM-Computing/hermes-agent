@@ -1,5 +1,8 @@
 # hermes-agent
 
+[![CI](https://github.com/ZQM-Computing/hermes-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/ZQM-Computing/hermes-agent/actions/workflows/ci.yml) [![Tests](https://github.com/ZQM-Computing/hermes-agent/actions/workflows/tests.yml/badge.svg)](https://github.com/ZQM-Computing/hermes-agent/actions/workflows/tests.yml) [![Ruff](https://github.com/ZQM-Computing/hermes-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/ZQM-Computing/hermes-agent/actions/workflows/ci.yml) [![mypy](https://github.com/ZQM-Computing/hermes-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/ZQM-Computing/hermes-agent/actions/workflows/ci.yml)
+
+
 The self-improving AI agent built by Nous Research. It creates skills from experience, improves them during use, and runs anywhere.
 
 ## About
