@@ -84,7 +84,7 @@ def test_run_one_job_empty_response_is_soft_failure(monkeypatch):
 
     s.run_one_job({"id": "j4", "name": "t"})
 
-    mark = [c for c in calls if c[0] == "mark"][0]
+    mark = next(c for c in calls if c[0] == "mark")
     assert mark == ("mark", "j4", False)
 
 
@@ -96,7 +96,7 @@ def test_run_one_job_failed_job_delivers_error(monkeypatch):
 
     kinds = [c[0] for c in calls]
     assert "deliver" in kinds  # failures always deliver
-    mark = [c for c in calls if c[0] == "mark"][0]
+    mark = next(c for c in calls if c[0] == "mark")
     assert mark == ("mark", "j5", False)
 
 

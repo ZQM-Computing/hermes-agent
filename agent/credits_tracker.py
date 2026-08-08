@@ -689,7 +689,7 @@ def _credits_state_from_account(info) -> Optional[CreditsState]:
         _sub = getattr(info, "subscription", None)
 
         def _to_micros(dollars):
-            return int(round(dollars * 1_000_000)) if isinstance(dollars, (int, float)) else 0
+            return round(dollars * 1_000_000) if isinstance(dollars, (int, float)) else 0
 
         def _to_usd(dollars):
             # DISPLAY formatting of an account float (not a server *_usd string);

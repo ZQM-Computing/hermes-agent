@@ -98,7 +98,7 @@ class TestApplyWalWithFallback:
         # Post-fallback the DB is still usable for real writes
         conn.execute("CREATE TABLE t (x INTEGER)")
         conn.execute("INSERT INTO t VALUES (1)")
-        assert list(conn.execute("SELECT x FROM t"))[0][0] == 1
+        assert next(iter(conn.execute("SELECT x FROM t")))[0] == 1
         conn.close()
 
     def test_falls_back_on_not_authorized(self, tmp_path):

@@ -145,7 +145,7 @@ def _get_process_start_time(pid: int) -> Optional[int]:
     # of the same process compare equal without float-precision fragility.
     try:
         import psutil  # type: ignore
-        return int(round(psutil.Process(pid).create_time() * 100))
+        return round(psutil.Process(pid).create_time() * 100)
     except Exception:
         return None
 

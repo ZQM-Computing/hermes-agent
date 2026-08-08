@@ -3039,7 +3039,8 @@ def _sync_session_key_after_compress(
 
 
 def _get_usage(agent) -> dict:
-    g = lambda k, fb=None: getattr(agent, k, 0) or (getattr(agent, fb, 0) if fb else 0)
+    def g(k, fb=None):
+        return getattr(agent, k, 0) or (getattr(agent, fb, 0) if fb else 0)
     usage = {
         "model": getattr(agent, "model", "") or "",
         "input": g("session_input_tokens", "session_prompt_tokens"),
@@ -3374,7 +3375,7 @@ def _fmt_tool_duration(seconds: float | None) -> str:
         return f"{seconds:.1f}s"
     if seconds < 60:
         return f"{round(seconds)}s"
-    mins, secs = divmod(int(round(seconds)), 60)
+    mins, secs = divmod(round(seconds), 60)
     return f"{mins}m {secs}s" if secs else f"{mins}m"
 
 

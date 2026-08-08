@@ -570,7 +570,7 @@ def test_repair_preserves_reasoning_content_on_merge():
 
     AIAgent._repair_message_sequence(agent, messages)
 
-    merged = [m for m in messages if m.get("role") == "assistant"][0]
+    merged = next(m for m in messages if m.get("role") == "assistant")
     assert merged.get("reasoning_content") == "thinking A"
 
 
@@ -686,7 +686,7 @@ def test_sanitize_deduplicates_duplicate_assistant_tool_call_ids():
         {"role": "tool", "tool_call_id": "call_Y", "content": "r"},
     ]
     out = sanitize_api_messages(list(messages))
-    assistant = [m for m in out if m.get("role") == "assistant"][0]
+    assistant = next(m for m in out if m.get("role") == "assistant")
     ids = [tc["id"] for tc in assistant["tool_calls"]]
     assert ids == ["call_Y"]  # duplicate collapsed
 
@@ -707,7 +707,7 @@ def test_sanitize_preserves_distinct_tool_call_ids():
         {"role": "tool", "tool_call_id": "call_B", "content": "rb"},
     ]
     out = sanitize_api_messages(list(messages))
-    assistant = [m for m in out if m.get("role") == "assistant"][0]
+    assistant = next(m for m in out if m.get("role") == "assistant")
     assert [tc["id"] for tc in assistant["tool_calls"]] == ["call_A", "call_B"]
     assert sorted(m["tool_call_id"] for m in out if m.get("role") == "tool") == ["call_A", "call_B"]
 
@@ -727,7 +727,7 @@ def test_sanitize_drops_empty_tool_calls_array():
         {"role": "assistant", "content": "answer", "tool_calls": []},
     ]
     out = sanitize_api_messages(list(messages))
-    assistant = [m for m in out if m.get("role") == "assistant"][0]
+    assistant = next(m for m in out if m.get("role") == "assistant")
     assert "tool_calls" not in assistant
     assert assistant["content"] == "answer"
 
@@ -768,5 +768,5 @@ def test_sanitize_preserves_populated_tool_calls():
         {"role": "tool", "tool_call_id": "call_Z", "content": "r"},
     ]
     out = sanitize_api_messages(list(messages))
-    assistant = [m for m in out if m.get("role") == "assistant"][0]
+    assistant = next(m for m in out if m.get("role") == "assistant")
     assert [tc["id"] for tc in assistant["tool_calls"]] == ["call_Z"]

@@ -3755,7 +3755,8 @@ class TestRegistryCollisionWarning:
 
         reg = ToolRegistry()
         schema = {"name": "my_tool", "description": "test", "parameters": {"type": "object", "properties": {}}}
-        handler = lambda args, **kw: "{}"
+        def handler(args, **kw):
+            return "{}"
 
         reg.register(name="my_tool", toolset="builtin", schema=schema, handler=handler)
 
@@ -3774,7 +3775,8 @@ class TestRegistryCollisionWarning:
 
         reg = ToolRegistry()
         schema = {"name": "my_tool", "description": "test", "parameters": {"type": "object", "properties": {}}}
-        handler = lambda args, **kw: "{}"
+        def handler(args, **kw):
+            return "{}"
 
         reg.register(name="my_tool", toolset="mcp-server", schema=schema, handler=handler)
 

@@ -2050,7 +2050,7 @@ def _build_document_context_note(display_name: str, agent_path: str, mtype: str)
 
 
 def _format_duration(seconds: float) -> str:
-    total = int(round(seconds))
+    total = round(seconds)
     if total < 0:
         total = 0
     hours, rem = divmod(total, 3600)
@@ -2543,7 +2543,8 @@ def _drain_gateway_watch_events(completion_queue) -> "list[dict]":
 # Used by tools (e.g. send_message) that need to route through a live
 # adapter for plugin platforms.  Set in GatewayRunner.__init__().
 import weakref as _weakref
-_gateway_runner_ref: _weakref.ref = lambda: None
+def _gateway_runner_ref():
+    return None
 
 
 def _normalize_empty_agent_response(

@@ -144,7 +144,7 @@ def _format_exhausted_status(entry) -> str:
     exhausted_until = _exhausted_until(entry)
     if exhausted_until is None:
         return f" {label}{reason_text}{code}"
-    remaining = max(0, int(math.ceil(exhausted_until - time.time())))
+    remaining = max(0, math.ceil(exhausted_until - time.time()))
     if remaining <= 0:
         return f" {label}{reason_text}{code} (ready to retry)"
     minutes, seconds = divmod(remaining, 60)

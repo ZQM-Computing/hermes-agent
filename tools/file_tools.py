@@ -18,6 +18,7 @@ from tools.file_operations import (
 )
 from tools import file_state
 from agent.redact import redact_sensitive_text
+import itertools
 
 logger = logging.getLogger(__name__)
 
@@ -987,7 +988,7 @@ def _looks_like_read_file_line_numbered_content(content: str) -> bool:
         return False
 
     consecutive_pairs = sum(
-        1 for prev, current in zip(numbered, numbered[1:])
+        1 for prev, current in itertools.pairwise(numbered)
         if current == prev + 1
     )
     return consecutive_pairs >= len(numbered) - 1

@@ -2287,8 +2287,8 @@ class TestVoiceChannelAwareness:
         adapter._voice_receivers[111] = receiver
 
         info = adapter.get_voice_channel_info(111)
-        alice = [m for m in info["members"] if m["display_name"] == "Alice"][0]
-        bob = [m for m in info["members"] if m["display_name"] == "Bob"][0]
+        alice = next(m for m in info["members"] if m["display_name"] == "Alice")
+        bob = next(m for m in info["members"] if m["display_name"] == "Bob")
         assert alice["is_speaking"] is True
         assert bob["is_speaking"] is False
         assert info["speaking_count"] == 1

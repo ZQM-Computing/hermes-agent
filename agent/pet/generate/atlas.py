@@ -922,8 +922,10 @@ def normalize_cells(frames_by_state: dict[str, list], *, pad: int = _NORMALIZE_P
     """
     from PIL import Image
 
-    blank = lambda: Image.new("RGBA", (CELL_WIDTH, CELL_HEIGHT), (0, 0, 0, 0))
-    med = lambda vs: sorted(vs)[len(vs) // 2]  # robust center; ignores a limb/cape outlier
+    def blank():
+        return Image.new("RGBA", (CELL_WIDTH, CELL_HEIGHT), (0, 0, 0, 0))
+    def med(vs):
+        return sorted(vs)[len(vs) // 2]  # robust center; ignores a limb/cape outlier
 
     out: dict[str, list] = {}
     prepared: dict[str, tuple[list, tuple[int, int, int, int], tuple[int, int]]] = {}

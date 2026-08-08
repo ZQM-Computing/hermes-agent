@@ -52,7 +52,7 @@ class TestYuanbaoAdapterInit:
         config = make_config()
         adapter = YuanbaoAdapter(config)
         status = adapter.get_status()
-        assert status["connected"] == False
+        assert not status["connected"]
         assert status["bot_id"] is None
 
 

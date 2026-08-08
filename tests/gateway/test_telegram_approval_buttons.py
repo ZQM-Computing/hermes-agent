@@ -120,7 +120,7 @@ class TestTelegramExecApproval:
 
         # The approval_id should map to the session_key
         assert len(adapter._approval_state) == 1
-        approval_id = list(adapter._approval_state.keys())[0]
+        approval_id = next(iter(adapter._approval_state.keys()))
         assert adapter._approval_state[approval_id] == "my-session-key"
 
     @pytest.mark.asyncio

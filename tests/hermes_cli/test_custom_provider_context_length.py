@@ -9,6 +9,7 @@ from __future__ import annotations
 from unittest.mock import patch
 
 from hermes_cli.config import get_custom_provider_context_length
+import itertools
 
 
 class TestGetCustomProviderContextLength:
@@ -234,7 +235,7 @@ class TestContextProbeTiers:
         assert CONTEXT_PROBE_TIERS[0] == 256_000
         assert DEFAULT_FALLBACK_CONTEXT == 256_000
         # Tiers still descend monotonically
-        for a, b in zip(CONTEXT_PROBE_TIERS, CONTEXT_PROBE_TIERS[1:]):
+        for a, b in itertools.pairwise(CONTEXT_PROBE_TIERS):
             assert a > b, f"tiers must strictly descend, got {a} then {b}"
         # 128K is still a tier (users relying on it probe-down get there)
         assert 128_000 in CONTEXT_PROBE_TIERS

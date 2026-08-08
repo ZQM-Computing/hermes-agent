@@ -319,7 +319,8 @@ def test_junk_root_never_becomes_an_auto_project():
     )
     junk = _session("/home/me/.hermes", branch="main")
     real = _session("/www/app", branch="main")
-    is_junk = lambda root: root == "/home/me/.hermes"
+    def is_junk(root):
+        return root == "/home/me/.hermes"
 
     tree = pt.build_tree([], [junk, real], [], resolve, hydrate=True, is_junk_root=is_junk)
 

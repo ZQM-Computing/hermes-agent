@@ -1469,7 +1469,8 @@ class TestSilenceCallbackLock:
         recorder = AudioRecorder()
         mock_sd.InputStream.return_value = MagicMock()
 
-        cb = lambda: None
+        def cb():
+            return None
         recorder.start(on_silence_stop=cb)
         assert recorder._on_silence_stop is cb
 

@@ -78,10 +78,10 @@ class TestMcpEndpoints:
         self.client.post("/api/mcp/servers", json={"name": "tog", "url": "u"})
         r = self.client.put("/api/mcp/servers/tog/enabled", json={"enabled": False})
         assert r.status_code == 200 and r.json()["enabled"] is False
-        srv = [
+        srv = next(
             s for s in self.client.get("/api/mcp/servers").json()["servers"]
             if s["name"] == "tog"
-        ][0]
+        )
         assert srv["enabled"] is False
         # Toggling a missing server is a 404.
         assert self.client.put(

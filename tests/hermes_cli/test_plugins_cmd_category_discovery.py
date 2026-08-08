@@ -218,7 +218,7 @@ class TestDiscoverAllPlugins:
         keys = [e[5] for e in entries]
         assert keys.count("my-plugin") == 1
         # User version should win
-        entry = [e for e in entries if e[5] == "my-plugin"][0]
+        entry = next(e for e in entries if e[5] == "my-plugin")
         assert entry[1] == "2.0.0"
 
 

@@ -228,7 +228,7 @@ def estimate_tokens_from_schemas(tool_defs: Iterable[Dict[str, Any]]) -> int:
             total_chars += len(json.dumps(td, ensure_ascii=False, separators=(",", ":")))
         except (TypeError, ValueError):
             total_chars += len(str(td))
-    return int(math.ceil(total_chars / CHARS_PER_TOKEN))
+    return math.ceil(total_chars / CHARS_PER_TOKEN)
 
 
 def should_activate(

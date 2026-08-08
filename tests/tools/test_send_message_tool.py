@@ -193,7 +193,8 @@ def _install_telegram_mock(monkeypatch, bot):
     constants_mod = SimpleNamespace(ParseMode=parse_mode)
     # MessageEntity needed by #27865 mention-detection path; tests don't
     # inspect it but the import must succeed.
-    _MessageEntity = lambda **_kw: SimpleNamespace(**_kw)
+    def _MessageEntity(**_kw):
+        return SimpleNamespace(**_kw)
     telegram_mod = SimpleNamespace(Bot=lambda token: bot, MessageEntity=_MessageEntity, constants=constants_mod)
     monkeypatch.setitem(sys.modules, "telegram", telegram_mod)
     monkeypatch.setitem(sys.modules, "telegram.constants", constants_mod)

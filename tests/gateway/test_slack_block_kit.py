@@ -52,7 +52,7 @@ class TestNestedLists:
     def test_nested_bullets_produce_increasing_indent(self):
         md = "- a\n  - b\n    - c"
         blocks = render_blocks(md)
-        rich = [b for b in blocks if b["type"] == "rich_text"][0]
+        rich = next(b for b in blocks if b["type"] == "rich_text")
         indents = [e["indent"] for e in rich["elements"] if e["type"] == "rich_text_list"]
         # true nesting: indent levels must strictly increase across the run
         assert indents == sorted(indents)
@@ -82,7 +82,7 @@ class TestInlineFormatting:
 
     def test_bulleted_bold_is_styled(self):
         blocks = render_blocks("- this is **bold** text")
-        rich = [b for b in blocks if b["type"] == "rich_text"][0]
+        rich = next(b for b in blocks if b["type"] == "rich_text")
         section = rich["elements"][0]["elements"][0]
         styled = [
             el for el in section["elements"]
@@ -99,7 +99,7 @@ class TestInlineFormatting:
         """
         md = "1. alpha\n\n1. beta\n\n1. gamma"
         blocks = render_blocks(md)
-        rich = [b for b in blocks if b["type"] == "rich_text"][0]
+        rich = next(b for b in blocks if b["type"] == "rich_text")
         lists = [e for e in rich["elements"] if e["type"] == "rich_text_list"]
         # Must be ONE list with 3 items, not 3 separate single-item lists
         assert len(lists) == 1

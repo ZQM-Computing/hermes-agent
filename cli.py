@@ -3323,7 +3323,8 @@ def _estimate_tui_input_height(
     try:
         from prompt_toolkit.utils import get_cwidth
     except Exception:
-        get_cwidth = lambda value: len(value or "")  # type: ignore[assignment]
+        def get_cwidth(value):
+            return len(value or "")  # type: ignore[assignment]
 
     try:
         columns = int(terminal_columns or 0)
@@ -9913,7 +9914,7 @@ class HermesCLI(CLIAgentSetupMixin, CLICommandsMixin):
         else:
             pct = int((s / l) * 100)
         pct = max(0, min(100, pct))
-        filled = int(round(pct / 100 * cells))
+        filled = round(pct / 100 * cells)
         filled = max(0, min(cells, filled))
         bar = ("█" * filled) + ("░" * (cells - filled))
         return bar, pct

@@ -511,7 +511,7 @@ def _downscale_cells(frame, *, target_cols: int) -> list[list[Cell]]:
 
     target_cols = max(4, target_cols)
     aspect = frame.height / max(1, frame.width)
-    target_rows = max(2, int(round(target_cols * aspect * 0.5)) * 2)
+    target_rows = max(2, round(target_cols * aspect * 0.5) * 2)
     small = frame.resize((target_cols, target_rows), Image.LANCZOS).convert("RGBA")
     px = small.load()
 

@@ -1975,7 +1975,8 @@ class TestGetProviderChain:
 
     def test_picks_up_patched_functions(self):
         """Patches on _try_* functions must be visible in the chain."""
-        sentinel = lambda: ("patched", "model")
+        def sentinel():
+            return ("patched", "model")
         with patch("agent.auxiliary_client._try_openrouter", sentinel):
             chain = _get_provider_chain()
         assert chain[0] == ("openrouter", sentinel)

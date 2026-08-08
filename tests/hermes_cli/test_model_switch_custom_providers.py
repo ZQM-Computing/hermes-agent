@@ -48,7 +48,8 @@ def test_list_authenticated_providers_includes_custom_providers(monkeypatch):
 def test_list_authenticated_providers_can_skip_custom_provider_live_probe(monkeypatch):
     monkeypatch.setattr("agent.models_dev.fetch_models_dev", dict)
     monkeypatch.setattr(providers_mod, "HERMES_OVERLAYS", {})
-    fetch = lambda *a, **k: (_ for _ in ()).throw(AssertionError("unexpected probe"))
+    def fetch(*a, **k):
+        return (_ for _ in ()).throw(AssertionError("unexpected probe"))
     monkeypatch.setattr("hermes_cli.models.fetch_api_models", fetch)
 
     providers = list_authenticated_providers(

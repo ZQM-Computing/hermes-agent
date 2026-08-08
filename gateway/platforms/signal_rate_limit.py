@@ -140,8 +140,8 @@ def _format_wait(seconds: float) -> str:
     """Human-friendly wait label for user-facing pacing notices."""
     s = max(0.0, seconds)
     if s < 90:
-        return f"{int(round(s))}s"
-    return f"{max(1, int(round(s / 60)))} min"
+        return f"{round(s)}s"
+    return f"{max(1, round(s / 60))} min"
 
 
 def _signal_send_timeout(num_attachments: int) -> float:

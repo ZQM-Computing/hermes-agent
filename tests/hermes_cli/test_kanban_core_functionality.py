@@ -2090,7 +2090,7 @@ def test_completed_event_payload_summary_none_when_missing(kanban_home):
         kb.claim_task(conn, tid)
         kb.complete_task(conn, tid)  # no summary, no result
         events = kb.list_events(conn, tid)
-        comp = [e for e in events if e.kind == "completed"][0]
+        comp = next(e for e in events if e.kind == "completed")
         assert comp.payload.get("summary") is None
     finally:
         conn.close()
@@ -2183,7 +2183,7 @@ def test_event_dataclass_carries_run_id(kanban_home):
             e.kind: e.run_id for e in events if e.run_id is not None
         }
         # 'created' should NOT have a run_id (task-scoped).
-        created = [e for e in events if e.kind == "created"][0]
+        created = next(e for e in events if e.kind == "created")
         assert created.run_id is None
         # 'claimed' and 'completed' must have run_id.
         assert kinds_with_run.get("claimed") == run_id
@@ -4070,11 +4070,11 @@ def test_complete_prose_scan_flags_nonexistent_ids(kanban_home):
         kinds = [r["kind"] for r in kinds_and_payloads]
         assert "suspected_hallucinated_references" in kinds
         import json as _json
-        susp = [
+        susp = next(
             _json.loads(r["payload"])
             for r in kinds_and_payloads
             if r["kind"] == "suspected_hallucinated_references"
-        ][0]
+        )
         assert "t_abcd1234ffff" in susp["phantom_refs"]
     finally:
         conn.close()

@@ -1638,7 +1638,8 @@ class TestPluginCommands:
         manifest = PluginManifest(name="test-plugin", source="user")
         ctx = PluginContext(manifest, mgr)
 
-        handler = lambda args: f"echo {args}"
+        def handler(args):
+            return f"echo {args}"
         ctx.register_command("mycmd", handler, description="My custom command")
 
         assert "mycmd" in mgr._plugin_commands
@@ -1721,7 +1722,8 @@ class TestPluginCommands:
         manifest = PluginManifest(name="test-plugin", source="user")
         ctx = PluginContext(manifest, mgr)
 
-        handler = lambda args: f"result: {args}"
+        def handler(args):
+            return f"result: {args}"
         ctx.register_command("mycmd", handler, description="test")
 
         with patch("hermes_cli.plugins._plugin_manager", mgr):

@@ -505,7 +505,7 @@ class TestCLI:
 
         r2 = _cli(["boards", "list", "--json"], env_extra=env)
         data = json.loads(r2.stdout)
-        cur = [b for b in data if b["is_current"]][0]
+        cur = next(b for b in data if b["is_current"])
         assert cur["slug"] == "myproj"
 
     def test_per_board_task_isolation_via_cli(self, tmp_path):

@@ -237,7 +237,8 @@ def test_discover_context_engines_includes_plugin_registered_engines(monkeypatch
     """Plugin-registered context engines appear in the ``hermes plugins`` picker."""
     from hermes_cli import plugins_cmd
 
-    fake_repo = lambda: [("compressor", "built-in", True)]
+    def fake_repo():
+        return [("compressor", "built-in", True)]
 
     class FakePluginEngine:
         name = "lcm"
@@ -291,7 +292,8 @@ def test_engine_collector_forwards_register_command_to_plugin_manager():
     from plugins.context_engine import _EngineCollector
     from hermes_cli.plugins import get_plugin_manager
 
-    handler = lambda raw_args: f"echo: {raw_args}"
+    def handler(raw_args):
+        return f"echo: {raw_args}"
 
     collector = _EngineCollector(engine_name="my-lcm")
     collector.register_command(

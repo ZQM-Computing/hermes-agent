@@ -926,7 +926,7 @@ class TestConvertMessages:
         ]
         _, result = convert_messages_to_anthropic(messages)
         # tool result is in the second message (user role)
-        user_msg = [m for m in result if m["role"] == "user"][0]
+        user_msg = next(m for m in result if m["role"] == "user")
         assert user_msg["content"][0]["type"] == "tool_result"
         assert user_msg["content"][0]["tool_use_id"] == "tc_1"
 
@@ -1003,7 +1003,7 @@ class TestConvertMessages:
             {"role": "tool", "tool_call_id": "tc_orphan", "content": "stale result"},
         ]
         _, result = convert_messages_to_anthropic(messages)
-        user_msg = [m for m in result if m["role"] == "user"][0]
+        user_msg = next(m for m in result if m["role"] == "user")
         tool_results = [
             b for b in user_msg["content"] if b.get("type") == "tool_result"
         ]
@@ -1056,9 +1056,9 @@ class TestConvertMessages:
             {"role": "tool", "tool_call_id": "tc_ok", "content": "good"},
         ]
         _, result = convert_messages_to_anthropic(messages)
-        asst = [m for m in result if m["role"] == "assistant"][0]
+        asst = next(m for m in result if m["role"] == "assistant")
         assert any(b.get("type") == "tool_use" for b in asst["content"])
-        user = [m for m in result if m["role"] == "user"][0]
+        user = next(m for m in result if m["role"] == "user")
         assert any(b.get("type") == "tool_result" for b in user["content"])
 
     def test_system_with_cache_control(self):
@@ -1104,7 +1104,7 @@ class TestConvertMessages:
         ], native_anthropic=True)
 
         _, result = convert_messages_to_anthropic(messages)
-        assistant_msg = [m for m in result if m["role"] == "assistant"][0]
+        assistant_msg = next(m for m in result if m["role"] == "assistant")
         tool_use = assistant_msg["content"][-1]
 
         assert tool_use["type"] == "tool_use"
@@ -1145,7 +1145,7 @@ class TestConvertMessages:
         ], native_anthropic=True)
 
         _, result = convert_messages_to_anthropic(messages)
-        assistant_msg = [m for m in result if m["role"] == "assistant"][0]
+        assistant_msg = next(m for m in result if m["role"] == "assistant")
         thinking, tool_use = assistant_msg["content"]
 
         assert thinking["type"] == "thinking"
@@ -1169,7 +1169,7 @@ class TestConvertMessages:
         ], native_anthropic=True)
 
         _, result = convert_messages_to_anthropic(messages)
-        user_msg = [m for m in result if m["role"] == "user"][0]
+        user_msg = next(m for m in result if m["role"] == "user")
         tool_block = user_msg["content"][0]
 
         assert tool_block["type"] == "tool_result"

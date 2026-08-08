@@ -1635,7 +1635,7 @@ class TestEdgeCases:
 
     def test_list_profiles_default_info_fields(self, profile_env):
         profiles = list_profiles()
-        default = [p for p in profiles if p.name == "default"][0]
+        default = next(p for p in profiles if p.name == "default")
         assert default.is_default is True
         assert default.gateway_running is False
         assert default.skill_count == 0

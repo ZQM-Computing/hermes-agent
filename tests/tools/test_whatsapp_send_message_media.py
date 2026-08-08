@@ -165,7 +165,7 @@ def test_force_document_sends_image_as_document():
                 )
             )
         assert res["success"] is True
-        media_call = [c for c in calls if c[0].endswith("/send-media")][0]
+        media_call = next(c for c in calls if c[0].endswith("/send-media"))
         assert media_call[1]["mediaType"] == "document"
         assert media_call[1]["fileName"] == os.path.basename(img)
     finally:

@@ -7058,7 +7058,8 @@ class TestStreamCallbackNonStreamingProvider:
         agent._interruptible_api_call = MagicMock(return_value=mock_response)
 
         received = []
-        cb = lambda delta: received.append(delta)
+        def cb(delta):
+            return received.append(delta)
         agent._stream_callback = cb
 
         _cb = getattr(agent, "_stream_callback", None)
@@ -7102,7 +7103,8 @@ class TestStreamCallbackNonStreamingProvider:
         )
 
         received = []
-        cb = lambda d: received.append(d)
+        def cb(d):
+            return received.append(d)
         agent._stream_callback = cb
         _cb = agent._stream_callback
 

@@ -195,7 +195,7 @@ class TestApplyAll:
         )
         assert env["K"] == "b"  # beta listed first
         assert report.provenance["K"].source == "beta"
-        beta_first = [s for s in report.sources if s.name == "alpha"][0]
+        beta_first = next(s for s in report.sources if s.name == "alpha")
         assert "K" in beta_first.skipped_claimed
 
     def test_cross_source_override_never_clobbers_prior_claim(self, tmp_path):
@@ -243,7 +243,7 @@ class TestApplyAll:
             tmp_path, environ=env,
         )
         assert env["K"] == "v"
-        broken = [s for s in report.sources if s.name == "broken"][0]
+        broken = next(s for s in report.sources if s.name == "broken")
         assert broken.result.error_kind is ErrorKind.NETWORK
 
     def test_raising_fetch_contained_as_internal_error(self, tmp_path):

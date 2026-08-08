@@ -557,8 +557,10 @@ class TestAgentCacheLifecycle:
         )
 
         # Set callbacks like the gateway does per-message
-        cb1 = lambda *a: None
-        cb2 = lambda *a: None
+        def cb1(*a):
+            return None
+        def cb2(*a):
+            return None
         agent.tool_progress_callback = cb1
         agent.step_callback = cb2
         agent.stream_delta_callback = None
@@ -568,7 +570,8 @@ class TestAgentCacheLifecycle:
         assert agent.step_callback is cb2
 
         # Update for next message
-        cb3 = lambda *a: None
+        def cb3(*a):
+            return None
         agent.tool_progress_callback = cb3
         assert agent.tool_progress_callback is cb3
 

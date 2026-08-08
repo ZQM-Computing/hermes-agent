@@ -139,7 +139,7 @@ def _frame_renderable(payload, *, cols, rows, reveal, color):
     axis_line.append(axis["end"], style="grey54" if color else None)
     parts.append(axis_line)
 
-    pct = int(round(reveal * 100))
+    pct = round(reveal * 100)
     foot = Text("  ")
     foot.append("◷ ", style="grey54" if color else None)
     foot.append(frame["date"] or "—", style=_TITLE_COLOR if color else None)

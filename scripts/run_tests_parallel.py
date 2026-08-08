@@ -761,7 +761,7 @@ def main() -> int:
 
         if args.include_integration:
             # Caller takes responsibility — typically used via explicit -k filter.
-            global _SKIP_PARTS  # noqa: PLW0603 — config knob
+            global _SKIP_PARTS
             _SKIP_PARTS = set()
 
         files = _discover_files(roots)
